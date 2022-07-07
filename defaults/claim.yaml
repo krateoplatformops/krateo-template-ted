@@ -1,0 +1,53 @@
+# {{=<% %>=}}
+---
+apiVersion: templates.krateo.io/v1alpha1
+kind: FireworksApp
+metadata:
+  name: <% name %>-fireworksapp
+  labels:
+    deploymentId: <% deploymentId %>
+spec:
+  dashboard:
+    description: <% description %>
+    icon: "fa-solid fa-fire"
+    tags:
+      - fireworks
+      - template
+      - krateo
+      - katy perry
+    links:
+      - url: https://<% provider %>/<% organizationName %>/<% repositoryName %>
+        title: <% organizationName %>/<% repositoryName %>
+        icon: "fa-brands fa-git"
+    plugins:
+      - name: resources
+        value: <% name %>-fireworksapp
+        type: argocd
+        icon: fa-solid fa-diagram-project
+        endpointName: argocd
+      - name: documentation
+        values:
+          - README.md
+        type: doc
+        icon: fa-solid fa-book
+        endpointName: github.com
+      - name: kubernetes
+        value: "deploymentId=<% deploymentId %>"
+        type: kubernetes
+        icon: fa-brands fa-docker
+    owner: <% owner %>
+  namespace: <% namespace %>
+  fromRepo:
+    domain: github.com
+    provider: github
+    apiUrl: https://api.github.com/
+    repositoryName: krateo-template-fireworksapp
+    organizationName: krateoplatformops
+    schema: https
+  toRepo:
+    domain: <% domain %>
+    provider: <% provider %>
+    apiUrl: <% apiUrl %>
+    repositoryName: <% repositoryName %>
+    organizationName: <% organizationName %>
+    schema: <% schema %> #it's the protocol for the url

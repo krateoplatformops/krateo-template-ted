@@ -1,0 +1,55 @@
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: fireworksapp.templates.krateo.io
+spec:
+  group: templates.krateo.io
+  names:
+    kind: FireworksApp
+    plural: fireworksapp
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          properties:
+            spec:
+              properties:
+                namespace:
+                  description: Kubernetes namespace for Krateo, i.e. krateo-system
+                  type: string
+                fromRepo:
+                  type: object
+                  properties:
+                    domain:
+                      type: string
+                    provider:
+                      type: string
+                    apiUrl:
+                      type: string
+                    repositoryName:
+                      type: string
+                    organizationName:
+                      type: string
+                    schema:
+                      type: string
+                toRepo:
+                  type: object
+                  properties:
+                      domain:
+                        type: string
+                      provider:
+                        type: string
+                      apiUrl:
+                        type: string
+                      repositoryName:
+                        type: string
+                      organizationName:
+                        type: string
+                      schema:
+                        type: string
+                _values:
+                  description: FireworksApp template values
+                  type: string

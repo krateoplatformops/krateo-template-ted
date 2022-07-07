@@ -1,0 +1,7 @@
+# {{=<% %>=}}
+---
+namespace: <% repositoryName %>-ns
+image: ghcr.io/<% organizationName %>/<% repositoryName %>:latest
+replicas: <% replicas %>
+name: <% repositoryName %>
+host: <% host %>
