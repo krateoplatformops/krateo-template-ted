@@ -3,16 +3,14 @@ kind: Template
 metadata:
   name: Krateo TED
   annotations:
-    title: Krateo Fireworks
-    description: Krateo Fireworks Template
+    title: Krateo TED
+    description: Krateo TED Template
     icon: fa-solid fa-fire
     owner: mauro.sala@kiratech.it
   labels:
     tags:
-      - fireworks
-      - template
-      - krateo
-      - katy perry
+      - bitbucket
+      - java spring boot
 spec:
   widgets:
     - title: Name and description

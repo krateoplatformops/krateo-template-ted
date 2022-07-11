@@ -2,12 +2,12 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-  name: fireworksapp.templates.krateo.io
+  name: ted.templates.krateo.io
 spec:
   group: templates.krateo.io
   names:
-    kind: FireworksApp
-    plural: fireworksapp
+    kind: Ted
+    plural: ted
   versions:
     - name: v1alpha1
       served: true
@@ -17,6 +17,9 @@ spec:
           properties:
             spec:
               properties:
+                name:
+                  description: TED name, i.e. krateo-system
+                  type: string
                 namespace:
                   description: Kubernetes namespace for Krateo, i.e. krateo-system
                   type: string

@@ -1,9 +1,9 @@
 apiVersion: pkg.crossplane.io/v1
 kind: Configuration
 metadata:
-  name: krateo-template-fireworksapp
+  name: krateo-template-ted
 spec:
-  package: 'ghcr.io/krateoplatformops/krateo-template-fireworksapp:v1.0.0'
+  package: 'ghcr.io/krateoplatformops/krateo-template-ted:latest'
   packagePullPolicy: Always
   revisionActivationPolicy: Automatic
   revisionHistoryLimit: 1

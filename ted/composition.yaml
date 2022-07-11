@@ -2,84 +2,12 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: fireworksapp.templates.krateo.io
+  name: ted.templates.krateo.io
 spec:
   compositeTypeRef:
     apiVersion: templates.krateo.io/v1alpha1
-    kind: FireworksApp
+    kind: Ted
   resources:
-    - base:
-        apiVersion: kubernetes.crossplane.io/v1alpha1
-        kind: ProviderConfig
-        spec:
-          credentials:
-            source: InjectedIdentity
-      patches:
-        - fromFieldPath: "metadata.labels[deploymentId]"
-          toFieldPath: "metadata.labels[deploymentId]"
-        - fromFieldPath: metadata.name
-          toFieldPath: metadata.name
-          transforms:
-            - type: string
-              string:
-                fmt: "%s-provider-k8s-pc-in"
-      readinessChecks:
-        - type: None
-    - base:
-        apiVersion: kubernetes.crossplane.io/v1alpha1
-        kind: Object
-        spec:
-          forProvider:
-            manifest:
-              apiVersion: argoproj.io/v1alpha1
-              kind: Application
-              metadata:
-                namespace: krateo-system
-              spec:
-                project: default
-                source:
-                  targetRevision: HEAD
-                  path: chart
-                destination:
-                  server: https://kubernetes.default.svc
-                  namespace: krateo-system
-                syncPolicy:
-                  automated:
-                    prune: true
-      patches:
-        - fromFieldPath: "metadata.labels[deploymentId]"
-          toFieldPath: "metadata.labels[deploymentId]"
-        - fromFieldPath: "metadata.labels[deploymentId]"
-          toFieldPath: "spec.forProvider.manifest.metadata.labels[deploymentId]"
-        - fromFieldPath: "metadata.name"
-          toFieldPath: "metadata.name"
-          transforms:
-            - type: string
-              string:
-                fmt: "%s-argocd-app-object"
-        - fromFieldPath: "metadata.name"
-          toFieldPath: "spec.forProvider.manifest.metadata.name"
-        - fromFieldPath: metadata.name
-          toFieldPath: spec.providerConfigRef.name
-          transforms:
-            - type: string
-              string:
-                fmt: "%s-provider-k8s-pc-in"
-        - type: CombineFromComposite
-          combine:
-            variables:
-              - fromFieldPath: "spec.toRepo.schema"
-              - fromFieldPath: "spec.toRepo.domain"
-              - fromFieldPath: "spec.toRepo.organizationName"
-              - fromFieldPath: "spec.toRepo.repositoryName"
-            strategy: string
-            string:
-              fmt: "%s://%s/%s/%s"
-          toFieldPath: "spec.forProvider.manifest.spec.source.repoURL"
-        - fromFieldPath: "spec.namespace"
-          toFieldPath: "spec.forProvider.manifest.metadata.namespace"
-        - fromFieldPath: "spec.namespace"
-          toFieldPath: "spec.forProvider.manifest.spec.destination.namespace"
     - base:
         apiVersion: git.krateo.io/v1alpha1
         kind: ProviderConfig
@@ -92,11 +20,11 @@ spec:
               namespace: krateo-system
               key: token
           toRepoCredentials:
-            authMethod: basic
             source: Secret
+            authMethod: bearer
             secretRef:
-              namespace: krateo-system
-              key: token
+              namespace: jxp-krateo-system
+              key: bearer
       patches:
         - fromFieldPath: "metadata.labels[deploymentId]"
           toFieldPath: "metadata.labels[deploymentId]"
@@ -148,7 +76,7 @@ spec:
           transforms:
             - type: string
               string:
-                fmt: "%s-fireworksapp-values"
+                fmt: "%s-ted-values"
         - fromFieldPath: metadata.name
           toFieldPath: spec.providerConfigRef.name
           transforms:
@@ -162,7 +90,7 @@ spec:
           transforms:
             - type: string
               string:
-                fmt: "%s-fireworksapp-cm"
+                fmt: "%s-ted-cm"
         - fromFieldPath: spec.namespace
           toFieldPath: spec.forProvider.manifest.metadata.namespace
     - base:
@@ -211,18 +139,21 @@ spec:
           transforms:
             - type: string
               string:
-                fmt: "%s-fireworksapp-cm"
+                fmt: "%s-ted-cm"
         - fromFieldPath: "spec.namespace"
           toFieldPath: "spec.forProvider.configMapKeyRef.namespace"
     - base:
-        apiVersion: github.krateo.io/v1alpha1
+        apiVersion: bitbucket.krateo.io/v1alpha1
         kind: ProviderConfig
         spec:
+          verbose: false
+          insecure: true
+          username: "TUJXPGHBQ03"
           credentials:
+            authMethod: basic
             source: Secret
             secretRef:
-              namespace: krateo-system
-              key: token
+              key: password
       patches:
         - fromFieldPath: "metadata.labels[deploymentId]"
           toFieldPath: "metadata.labels[deploymentId]"
@@ -233,7 +164,7 @@ spec:
           transforms:
             - type: string
               string:
-                fmt: "%s-provider-github-pc"
+                fmt: "%s-provider-bb-pc"
         - fromFieldPath: "spec.toRepo.domain"
           toFieldPath: "spec.credentials.secretRef.name"
           transforms:
@@ -245,24 +176,22 @@ spec:
         - fromFieldPath: "spec.namespace"
           toFieldPath: "spec.credentials.secretRef.namespace"
     - base:
-        apiVersion: github.krateo.io/v1alpha1
+        apiVersion: bitbucket.krateo.io/v1alpha1
         kind: Repo
-        spec:
-          forProvider:
-            fromRepo:
-              path: skeleton
       patches:
         - fromFieldPath: "metadata.labels[deploymentId]"
           toFieldPath: "metadata.labels[deploymentId]"
         - fromFieldPath: "metadata.labels[deploymentId]"
           toFieldPath: "spec.forProvider.deploymentId"
         - fromFieldPath: "spec.toRepo.organizationName"
-          toFieldPath: "spec.forProvider.org"
+          toFieldPath: "spec.forProvider.project"
         - fromFieldPath: "spec.toRepo.repositoryName"
           toFieldPath: "spec.forProvider.name"
+        - fromFieldPath: "spec.toRepo.privateRepository"
+          toFieldPath: "spec.forProvider.private"
         - fromFieldPath: metadata.name
           toFieldPath: spec.providerConfigRef.name
           transforms:
             - type: string
               string:
-                fmt: "%s-provider-github-pc"
+                fmt: "%s-provider-bb-pc"

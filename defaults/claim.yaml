@@ -1,9 +1,9 @@
 # {{=<% %>=}}
 ---
 apiVersion: templates.krateo.io/v1alpha1
-kind: FireworksApp
+kind: Ted
 metadata:
-  name: <% name %>-fireworksapp
+  name: <% name %>-ted
   labels:
     deploymentId: <% deploymentId %>
 spec:
@@ -41,7 +41,7 @@ spec:
     domain: github.com
     provider: github
     apiUrl: https://api.github.com/
-    repositoryName: krateo-template-fireworksapp
+    repositoryName: krateo-template-ted
     organizationName: krateoplatformops
     schema: https
   toRepo:
