@@ -35,7 +35,7 @@ jobs:
         with:
           channel: stable
           version: current
-          command: build configuration -f ${{ github.workspace }} --name package.xpkg --ignore '.github/*,examples/*,defaults/*,skeleton/*,skeleton/**,template.yaml'
+          command: build configuration -f ${{ github.workspace }} --name package.xpkg --ignore '**/.github/**,,examples/*,defaults/*,skeleton/*,skeleton/**,template.yaml'
       - name: Push
         uses: crossplane-contrib/xpkg-action@v0.2.0
         with:
