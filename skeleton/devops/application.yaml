@@ -1,0 +1,11 @@
+#podSettings:
+#  volumes:
+#    - name: my-nas
+#      nfs:
+#        server: usnas210.intranet.unicredit.it
+#        path: /vol/US210vol1/us_jxp_devops$
+#kind:
+#  apigee: { }
+{}
+#engine:
+#  test: { }

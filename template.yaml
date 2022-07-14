@@ -1,16 +1,17 @@
 apiVersion: krateo.io/v1alpha1
 kind: Template
 metadata:
-  name: Krateo TED
+  name: Dummy App
   annotations:
-    title: Krateo TED
-    description: Krateo TED Template
-    icon: fa-solid fa-fire
+    title: Dummy App
+    description: Dummy App Template
+    icon: fa-solid fa-plane-departure
     owner: mauro.sala@kiratech.it
   labels:
     tags:
-      - bitbucket
-      - java spring boot
+      - dummy app
+      - template
+      - krateo
 spec:
   widgets:
     - title: Name and description
@@ -20,53 +21,3 @@ spec:
           title: Name
           description: Unique name of the component
           required: true
-        description:
-          title: Description
-          description: Help others understand what this service does.
-          required: true
-          default: Cause baby, you're a firework. Come on, show 'em what you're worth
-        namespace:
-          title: Krateo namespace
-          description: Krateo namespace for the stack.
-          required: true
-    - title: Kubernetes
-      properties:
-        replicas:
-          title: Replicas
-          description: Number of replicas
-          type: radio
-          required: true
-          default: 3
-          values:
-            - 1
-            - 2
-            - 3
-            - 4
-            - 5
-
-    - title: Expose application
-      description: Expose your application
-      properties:
-        host:
-          title: Host
-          description: Hostname of the application
-          required: true
-
-    - title: Git repository destination
-      properties:
-        provider:
-          title: Git Provider
-          description: github.com / gitlab.com / bitbucket.org
-          required: true
-          default: github.com
-          values:
-            - github.com
-        organizationName:
-          title: Repository Organization
-          required: true
-          description: Organization name
-          default: krateoplatformops
-        repositoryName:
-          title: Repository Name
-          required: true
-          description: The name of the repository

@@ -1,0 +1,76 @@
+log:
+  level: TRACE
+
+##eventHandlers:
+#  - mail:
+#      handles:
+#        - decorated:
+#            event:
+#              source: pipeline
+#              reason: START
+#      to: 'giulio.longfils@unicredit.eu'
+
+#provision:
+#  mounts:
+#    - name: my-nas
+#      storage: 1Gi
+#      nfs:
+#        server: usnas210.intranet.unicredit.it
+#        path: /vol/US210vol1/us_jxp_devops
+#  tool:
+#    kubectl: { }
+
+build:
+  #before:
+  #  - copy:
+  #      from:
+  #        nfs: my-nas
+  #        files:
+  #          - source: giulio/mattermost.template
+  #            dest: devops/templates
+  tool:
+    maven:
+      phase: package
+  #after:
+  #- copy:
+  #    to:
+  #      nfs: my-nas
+  #      files:
+  #        - source: target/dummy-java-app-${POM_VERSION}.war
+  #          dest: giulio
+  #        - source: devops
+  #          dest: giulio/sources
+
+#buildContainer:
+#  before:
+#    - getArtifact:
+#        nexusDownload:
+#          mavenGroupId: eu.unicredit.jxp
+#          name: dummy-java-app
+#          mavenBaseVersion: 1.0.0-feature-PJ495090-5546-add-httpsauthentication-submodules-19-8004733
+#          mavenExtension: war
+#        destFolder: artifact
+#        tool:
+#          curl: { }
+#  tool:
+#    docker: { }
+
+publishArtifact:
+  artifact: target/dummy-java-app-${POM_VERSION}.war
+
+deployList:
+  repeatableSets:
+    - deploySet:
+        label: dev
+        conciergeCheck:
+          environment: dev
+        install:
+          tool:
+            gandalf: { }
+    - deploySet:
+        label: dev
+        conciergeCheck:
+          environment: dev
+        install:
+          tool:
+            gandalf: { }

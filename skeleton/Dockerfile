@@ -1,10 +1,8 @@
-FROM bitnami/nginx
-LABEL maintainer "Krateo <contact@krateoplatformops.io>"
+FROM alpine:3.14.1
 
-COPY index.html /app
+ARG user=test
+ARG group=test
+ARG uid=1000510000
+ARG gid=1000510000
 
-ENV PORT 8080
-EXPOSE 8080
-
-COPY nginx.conf /opt/bitnami/nginx/conf/bitnami/location.conf
-CMD ["nginx", "-g", "daemon off;"]
+RUN addgroup -S ${group} && adduser -S ${user} -G ${group}

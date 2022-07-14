@@ -1,0 +1,2 @@
+${event.tags} ${event.content.name} ${event.reason}
+${project} » ${repository} » ${env.BRANCH_NAME} - #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)

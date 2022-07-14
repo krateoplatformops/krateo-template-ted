@@ -1,0 +1,18 @@
+testName: "Dummy GET"
+calls:
+  - request:
+      name: "Login"
+      endpoint: "/users/read"
+      headers:
+        - { name: "Content-Type", value: "application/json" }
+        - { name: "Accept", value: "application/json" }
+    response:
+      assertions:
+        - { method: assertEquals, check: CODE, expected: 200, message: "Response code should be 200" }
+        - { method: assertEquals, check: HEADER, name: "Content-Type", expected: "application/json;charset=UTF-8" }
+        - { method: assertEquals, check: ENTITY, expected: '1', matcher: { type: JSON, path: '$.[0].id' } }
+        - { method: assertEquals, check: ENTITY, expected: 'Mario', matcher: { type: JSON, path: '$.[0].firstName' } }
+        - { method: assertEquals, check: ENTITY, expected: 'Rossi', matcher: { type: JSON, path: '$.[0].lastName' } }
+        - { method: assertEquals, check: ENTITY, expected: '2', matcher: { type: JSON, path: '$.[1].id' } }
+        - { method: assertEquals, check: ENTITY, expected: 'Mario', matcher: { type: JSON, path: '$.[1].firstName' } }
+        - { method: assertEquals, check: ENTITY, expected: 'Bianchi', matcher: { type: JSON, path: '$.[1].lastName' } }

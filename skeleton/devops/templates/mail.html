@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style type="text/css">
+        .container {
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        @media (min-width: 576px) {
+            .container {
+                max-width: 540px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+        }
+
+        .col-md-12 {
+            position: relative;
+            width: 100%;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+        .list-inline {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-bottom: 0.5rem;
+            font-family: inherit;
+            font-weight: 500;
+            line-height: 1.2;
+            color: inherit;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        h3 {
+            font-size: 1.75rem;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+        }
+
+        h5 {
+            font-size: 1.25rem;
+        }
+
+        h6 {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="col-md-12">
+                    <h1 class="text-center" style="background-color: ${color}">
+                        <a href="${env.BUILD_URL}" style="margin: 0 auto">
+                            ${project} » ${repository} » ${env.BRANCH_NAME}
+                        </a>
+                    </h1>
+                    <p class="text-center">
+                        Started by <a href="${userUrl}">${user}</a> Build Number: ${build}
+                    </p>
+                    <br>
+                    <h4 class=text-center>
+                        Changes:
+                    </h4>
+                    <ul class="text-center center-block align list-inline">
+                        <li>${changes}</li>
+                    </ul>
+                    <br>
+                    <h5 class=text-center>
+                        ${testSummary}
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

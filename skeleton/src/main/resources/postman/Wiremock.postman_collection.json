@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "39d761a8-6a65-40b6-9d56-0868bee0c125",
+		"name": "Wiremock",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Stubs",
+			"item": [
+				{
+					"name": "Stub hello world",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"request\": {\r\n        \"method\": \"GET\",\r\n        \"url\": \"/RWP/some/thing\"\r\n    },\r\n    \"response\": {\r\n        \"status\": 200,\r\n        \"body\": \"Hello world!\",\r\n        \"headers\": {\r\n            \"Content-Type\": \"text/plain\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://wiremock.devops.internal.unicreditgroup.eu/__admin/mappings",
+							"protocol": "https",
+							"host": [
+								"wiremock",
+								"devops",
+								"internal",
+								"unicreditgroup",
+								"eu"
+							],
+							"path": [
+								"__admin",
+								"mappings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Requests",
+			"item": [
+				{
+					"name": "Get some/thing",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Hello world\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://wiremock.devops.internal.unicreditgroup.eu/RWP/some/thing",
+							"protocol": "https",
+							"host": [
+								"wiremock",
+								"devops",
+								"internal",
+								"unicreditgroup",
+								"eu"
+							],
+							"path": [
+								"RWP",
+								"some",
+								"thing"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

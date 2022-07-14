@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dummy App</title>
+    <meta charset="UTF-8">
+    <script src="./scripts/jquery-3.4.1.min.js"></script>
+    <script src="./scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/fontawesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+<body>
+<div id="loading_wrapper">
+    <div id="loading">LOADING...</div>
+</div>
+
+<div id="external_wrapper">
+    <div id="title">Beautiful Java Application</div>
+    <div><a id="download_link" href="download" target="_blank">Download an awesome pdf!</a></div>
+
+    <div id="internal_wrapper" class="row">
+        <div class="wrapper col-sm-4">
+            <div class="row">
+                <div class="title col-sm-12">USER LIST</div>
+            </div>
+            <ul id="ul_to_clone">
+                <li id="li_to_clone" class="list-group-item">
+                    <span class="name"></span>
+                    <img src="./images/bin.png" class="delete_btn" onclick="deleteUser($(this).parent().attr('id'));"/>
+                </li>
+            </ul>
+            <ul id="users_list" class="col-sm-12 list-group">
+                <li class="list-group-item">
+                    <span class="name">1 Mario BLAH</span>
+                    <img src="./images/bin.png" class="delete_btn"/>
+                </li>
+                <li class="list-group-item">
+                    <span class="name">2 Mario BLdasdsdAH</span>
+                    <img src="./images/bin.png" class="delete_btn"/>
+                </li>
+            </ul>
+            <script>
+              $(document).ready(function () {
+                readUsers()
+              });
+            </script>
+        </div>
+
+        <div class="wrapper col-sm-4">
+            <div class="row">
+                <div id="insert_title" class="title col-sm-12">INSERT USER</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12"><input id="first_name" class="form-control form-control-sm" placeholder="First Name"/></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12"><input id="last_name" class="form-control form-control-sm" placeholder="Last Name"/></div>
+            </div>
+            <div class="row cta">
+                <div class="col-sm-12">
+                    <button type="button" id="insert_btn" class="btn btn-success btn-sm" onclick="insertUser();">INSERT</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper col-sm-4">
+            <div class="row">
+                <div id="update_title" class="title col-sm-12">UPDATE USER</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12"><input id="id_to_update" class="form-control form-control-sm" placeholder="Id"/></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12"><input id="first_name_to_update" class="form-control form-control-sm" placeholder="First Name"/></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12"><input id="last_name_to_update" class="form-control form-control-sm" placeholder="Last Name"/></div>
+            </div>
+            <div class="row cta">
+                <div class="col-sm-12">
+                    <button type="button" id="update_btn" class="btn btn-success btn-sm" onclick="updateUser();">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  function clearUsersList() {
+    $("#users_list").html("");
+  }
+
+  function post(url, data) {
+    $("#loading_wrapper").css("display", "block");
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: data,
+      contentType: "application/json"
+    }).done(function () {
+      readUsers();
+    });
+  }
+
+  function readUsers() {
+    $.get("users/read", function (data) {
+      clearUsersList();
+
+      for (var i = 0; i < data.length; i++) {
+        var u = data[i];
+        let clonedLi = $("#li_to_clone").clone();
+
+        clonedLi
+          .find(".name")
+          .prop("id", "name_" + i)
+          .text(u.firstName + " " + u.lastName);
+
+        clonedLi
+          .find(".delete_btn")
+          .prop("id", "delete_" + i);
+
+        clonedLi.prop("id", u.id);
+        clonedLi.appendTo("#users_list");
+      }
+
+      $("#loading_wrapper").css("display", "none");
+    });
+  }
+
+  function insertUser() {
+    post(
+      "users/create",
+      '{ "firstName": "' + $("#first_name").val() + '", "lastName": "' + $("#last_name").val() + '" }'
+    );
+  }
+
+  function updateUser() {
+    post(
+      "users/update/" + $("#id_to_update").val(),
+      '{ "firstName": "' + $("#first_name_to_update").val() + '", "lastName": "' + $("#last_name_to_update").val() + '" }'
+    );
+  }
+
+  function deleteUser(id) {
+    post(
+      "users/delete/" + id
+    );
+  }
+</script>
+</body>
+</html>

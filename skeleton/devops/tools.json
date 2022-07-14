@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "tools",
+  "type": "object",
+  "additionalProperties": false,
+  "title": "Tools schema",
+  "description": "The root schema comprises all the tools definitions",
+  "definitions": {
+    "maven": {
+      "$id": "maven",
+      "type": "object",
+      "description": "maven tool",
+      "properties": {
+        "phase": {
+          "$id": "maven/phase",
+          "type": "string",
+          "title": "Maven phase",
+          "description": "Maven phase"
+        }
+      },
+      "required": ["phase"]
+    }
+  }
+}

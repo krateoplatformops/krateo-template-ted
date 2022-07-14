@@ -1,0 +1,9 @@
+{
+  "project": "${env.PROJECT_NAME}",
+  "repository": "${env.REPOSITORY_NAME}",
+  "branch": "${env.BRANCH_NAME}",
+  "artifact": ${env.NEXUS_COMPONENT},
+  "commitId": "${env.GIT_REVISION}",
+  "repositoryUrl": "${env.GIT_URL}",
+  "event": ${eventContent}
+}

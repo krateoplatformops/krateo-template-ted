@@ -1,0 +1,44 @@
+{
+	"info": {
+		"_postman_id": "c8a34937-7f99-4d13-9afe-76de5604ba37",
+		"name": "Dummy tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "google",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jenkins.devops.internal.unicreditgroup.eu/",
+					"protocol": "https",
+					"host": [
+						"jenkins",
+						"devops",
+						"internal",
+						"unicreditgroup",
+						"eu"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
