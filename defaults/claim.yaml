@@ -11,10 +11,8 @@ spec:
     description: <% description %>
     icon: "fa-solid fa-fire"
     tags:
-      - fireworks
-      - template
-      - krateo
-      - katy perry
+      - ted
+      - bitbucket
     links:
       - url: https://<% provider %>/<% organizationName %>/<% repositoryName %>
         title: <% organizationName %>/<% repositoryName %>
